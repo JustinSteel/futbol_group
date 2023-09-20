@@ -1,22 +1,16 @@
 
 # require_relative './spec_helper'
-
+require_relative 'game_stats'
 
 class StatTracker
 
-  def initialize
-  
+  def highest_total_score
+    GameStats.highest_total_score
   end
 
-  def self.from_csv(locations)
-    contents = CSV.open locations[:games], headers: true, header_converters: :symbol
-    contents.each do |row|
-      row
-      require 'pry'; binding.pry
-    end
-    # StatTracker.new
+  def lowest_total_score
+    GameStats.lowest_total_score
   end
-
 end
 
   

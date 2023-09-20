@@ -1,0 +1,7 @@
+require 'csv'
+require 'simplecov'
+require 'rspec'
+require './lib/stat_tracker'
+require './lib/runner'
+require './lib/game_stats'
+require './lib/data'
