@@ -8,9 +8,14 @@ class StatTracker
     GameStats.highest_total_score
   end
 
-  def lowest_total_score
-    GameStats.lowest_total_score
-  end
+  # def lowest_total_score
+  #   GameStats.lowest_total_score
+  # end
+
+  # def percentage_home_wins
+  #   GameStats.percentage_home_wins
+  # end
+  
 end
 
   

@@ -7,5 +7,6 @@ require_relative 'data'
 
 p StatTracker.new.highest_total_score
 
-p StatTracker.new.lowest_total_score
+# p StatTracker.new.lowest_total_score
 
+# p StatTracker.new.percentage_home_wins
