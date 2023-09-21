@@ -41,7 +41,7 @@ class StatTracker
     (ties/@game_data.count).round(2)
   end
 
-  def 
+  
 end
 
   
