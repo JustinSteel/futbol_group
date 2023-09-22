@@ -2,3 +2,4 @@ coverage
 coverage >> .gitignore
 .vscode*
 .vscode/*
+.DS_store
