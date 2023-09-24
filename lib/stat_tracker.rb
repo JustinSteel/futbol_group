@@ -337,7 +337,7 @@ def fewest_tackles(season)
         cur_game = @game_teams_data.find do |game|
           game.game_id == game_id
         end
-        shot_total += cur_game.shots.to_f
+        shot_total += cur_game.shots.to_i
       end
       team_shots_season[team_id] = total_shots
     end
@@ -349,7 +349,7 @@ def fewest_tackles(season)
         cur_game = @game_teams_data.find do |game|
           game.game_id == game_id
         end
-        goal_total += cur_game.goals.to_f
+        goal_total += cur_game.goals.to_i
       end
       team_goals_season[team_id] = total_goals
     end
@@ -370,7 +370,7 @@ def fewest_tackles(season)
     team_shot_pctg_season = {}
 
     team_shots_goals_season.each do |team_id, shots_goals_hash|
-      team_shot_pctg_season[team_id] = (shots_goals_hash[:goals]/shots_goals_hash[:shots]).round(3)
+      team_shot_pctg_season[team_id] = ((shots_goals_hash[:goals]).to_f/(shots_goals_hash[:shots]).to_f).round(3)
     end
 
     team_highest_key = team_shot_pctg_season.key(team_shot_pctg_season.values.max)
