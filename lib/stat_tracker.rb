@@ -1,78 +1,38 @@
 # require_relative './spec_helper'
-require_relative './game'
-require_relative './game_team'
-require_relative './teams'
+# require_relative './game'
+# require_relative './game_team'
+# require_relative './teams'
+require_relative 'game_stats'
+require_relative 'game'
+require_relative 'data'
+ require 'pry-nav'
+
 
 class StatTracker
-  attr_reader :locations, :team_data, :game_data, :game_teams_data
 
-  def initialize(locations)
-    @game_data = create_games(locations[:games])
-    @game_teams_data = create_game_teams(locations[:game_teams])
-    @team_data = create_teams(locations[:teams])
+  include GameStats
+  include Data
+
+  @stat_tracker = StatTracker.new
+  def initialize
+    @game_data = Data.game
+    @game_teams_data = Data.team
+    @team_data = Data.game_teams
   end
 
-  # CREATOR METHODS
+  # GAME STATISTICS MODULE methods
 
-  def create_games(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Game.new(row)
-    end
-  end
+  @stat_tracker.highest_total_score
 
-  def create_game_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row| 
-      GameTeam.new(row)
-    end
-  end
+  @stat_tracker.lowest_total_score
 
-  def create_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Team.new(row)
-    end
-  end
+  @stat_tracker.percentage_home_wins
 
-  def self.from_csv(locations)
-    StatTracker.new(locations)
-  end
-
-  # GAME STATISTICS
-
-  def highest_total_score
-    most_goals_game = Game.games.reduce(0) do |goals, game|
-      game_goals = game.home_goals.to_i + game.away_goals.to_i
-      if game_goals > goals
-        goals = game_goals
-      end
-      goals
-    end
-    most_goals_game
-  end
-
-  def lowest_total_score
-    fewest_goals_game = Game.games.reduce(0) do |goals, game|
-      game_goals = game.home_goals.to_i + game.away_goals.to_i
-      if game_goals < goals
-        goals = game_goals
-      end
-      goals
-    end
-    fewest_goals_game
-  end
-  #hm
   def percentage_calculator(portion, whole)
     percentage = (portion/whole).round(2)
   end
 
-  def percentage_home_wins
-    home_wins = GameTeam.gameteam.count do |game|
-      game.hoa == "home" && game.result == "WIN"
-    end 
-    (home_wins.to_f / Game.games.count.to_f).round(2)
-  end
+  
 
   def percentage_visitor_wins
     away_wins = GameTeam.gameteam.count do |game|
@@ -404,4 +364,3 @@ class StatTracker
     }
   end
 end
-
