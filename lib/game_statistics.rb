@@ -13,6 +13,7 @@ module GameStatistics
   GAME_PATH ='./data/games.csv'
 
   GAME_DATA = create_games(GAME_PATH)
+  require 'pry'; binding.pry
 
   def self.highest_total_score
     most_goals_game = GAME_DATA.reduce(0) do |goals, game|

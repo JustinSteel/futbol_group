@@ -18,7 +18,7 @@ RSpec.describe StatTracker do
     #   game_teams:       game_teams_path
     # }
     
-    @stat_tracker = GameStatistics.create_games
+    @stat_tracker = create_games
   end
 
   it "#highest_total_score" do
@@ -367,4 +367,4 @@ end
 #       end
 #     end
 #   end
-# end
+end
