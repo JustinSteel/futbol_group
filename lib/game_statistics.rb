@@ -5,7 +5,7 @@ module GameStats
 
   include Data
 
-  def highest_total_score
+  def self.highest_total_score
     most_goals_game = Data.game.reduce(0) do |goals, game|
       game_goals = game.home_goals.to_i + game.away_goals.to_i
       if game_goals > goals

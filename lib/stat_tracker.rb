@@ -12,15 +12,17 @@ class StatTracker
   extend GameStats
   include Data
 
-  def initialize
-    @game_data = Data.game
-    @game_teams_data = Data.team
-    @team_data = Data.game_teams
-  end
+  # def initialize
+  #   @game_data = Data.game
+  #   @game_teams_data = Data.team
+  #   @team_data = Data.game_teams
+  # end
 
   # GAME STATISTICS MODULE methods
 
-  highest_total_score
+  self.highest_total_score
+  
+  require 'pry'; binding.pry
 
   def lowest_total_score
     fewest_goals_game = Game.games.reduce(0) do |goals, game|

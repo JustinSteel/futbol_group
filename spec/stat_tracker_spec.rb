@@ -236,6 +236,7 @@ RSpec.describe StatTracker do
     end
   end
 end
+
 # Group Tests
 # ==========================================================================================================
 
@@ -245,9 +246,6 @@ end
 #     end
 #   end
 
-#   
-
-#   
 
 #   it "#percentage_visitor_wins" do 
 #     expect(@game_stats.percentage_visitor_wins).to eq 0.0
@@ -375,4 +373,4 @@ end
 #       end
 #     end
 #   end
-end
+# end
