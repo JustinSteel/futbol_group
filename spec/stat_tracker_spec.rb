@@ -184,6 +184,7 @@ RSpec.describe StatTracker do
     it "returns the percentage for given numbers rounded to nearest 100th" do
       expect(@stat_tracker.percentage_calculator(13.0, 19.0)).to eq(0.68)
       expect(@stat_tracker.percentage_calculator(5.0, 19.0)).to eq(0.26)
+      # require 'pry'; binding.pry
       expect(@stat_tracker.percentage_calculator(1.0, 19.0)).to eq(0.05)
     end
   end

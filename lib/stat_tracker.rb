@@ -62,10 +62,6 @@ class StatTracker
     end
     fewest_goals_game
   end
-  #hm
-  def percentage_calculator(portion, whole)
-    percentage = (portion/whole).round(2)
-  end
 
   def percentage_home_wins
     home_wins = GameTeam.gameteam.count do |game|
@@ -96,17 +92,6 @@ class StatTracker
     end 
     games_seasons
 
-  end
-
-  def average_goals_per_game
-    total_goals = 0
-    total_games = []
-    Gameteam.gameteam.each do |row|
-      total_goals += row.goals.to_i
-      total_games << row.game_id
-    end
-    average = total_goals.to_f / total_games.uniq.count
-    average.round(2)
   end
 
   def average_goals_by_season
@@ -290,7 +275,7 @@ class StatTracker
     end
     win_percentage(coach_win_hash, coach_loss_hash, coach_tie_hash)
   end
-         
+      
   def total_games(wins, losses, ties)
     total_games = wins.merge(losses) do |key, wins, losses|
       wins + losses + ties[key].to_i
