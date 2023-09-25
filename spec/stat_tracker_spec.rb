@@ -1,21 +1,23 @@
 require './spec/spec_helper'
+require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  before(:all) do
+  
+  before(:each) do
     # game_path =         './fixture/games_fixture.csv'
     # team_path =         './data/teams.csv'
     # game_teams_path = './fixture/game_teams_fixture.csv'
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path =   './data/game_teams.csv'
-
-    locations = {
-      games:            game_path,
-      teams:            team_path,
-      game_teams:       game_teams_path
-    }
-
-    @stat_tracker = StatTracker.new(locations)
+    # game_path = './data/games.csv'
+    # team_path = './data/teams.csv'
+    # game_teams_path =   './data/game_teams.csv'
+    
+    # locations = {
+      #   games:            game_path,
+      #   teams:            team_path,
+      #   game_teams:       game_teams_path
+      # }
+      
+      @stat_tracker = StatTracker.new
   end
 
   describe '#Total Scores' do
@@ -231,6 +233,7 @@ RSpec.describe StatTracker do
     end
   end
 end
+
 # Group Tests
 # ==========================================================================================================
 
@@ -240,9 +243,6 @@ end
 #     end
 #   end
 
-#   
-
-#   
 
 #   it "#percentage_visitor_wins" do 
 #     expect(@game_stats.percentage_visitor_wins).to eq 0.0
