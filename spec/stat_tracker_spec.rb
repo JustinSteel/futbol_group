@@ -1,26 +1,29 @@
 require './spec/spec_helper'
+require_relative './lib/game_statistics'
 
 RSpec.describe StatTracker do
+  include GameStatistics
+
   before(:all) do
     # game_path =         './fixture/games_fixture.csv'
     # team_path =         './data/teams.csv'
     # game_teams_path = './fixture/game_teams_fixture.csv'
-    game_path = './data/games.csv'
-    team_path = './data/teams.csv'
-    game_teams_path =   './data/game_teams.csv'
+    # game_path = './data/games.csv'
+    # team_path = './data/teams.csv'
+    # game_teams_path =   './data/game_teams.csv'
 
-    locations = {
-      games:            game_path,
-      teams:            team_path,
-      game_teams:       game_teams_path
-    }
-
-    @stat_tracker = StatTracker.new(locations)
+    # locations = {
+    #   games:            game_path,
+    #   teams:            team_path,
+    #   game_teams:       game_teams_path
+    # }
+    
+    @stat_tracker = GameStatistics.create_games
   end
 
   it "#highest_total_score" do
     expect(@stat_tracker.highest_total_score).to eq 11
-  end
+  en
 
   it "#lowest_total_score" do
     expect(@stat_tracker.lowest_total_score).to eq 0

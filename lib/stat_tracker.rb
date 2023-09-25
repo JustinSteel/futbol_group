@@ -1,12 +1,15 @@
 # require_relative './spec_helper'
-require_relative './game'
-require_relative './game_team'
-require_relative './teams'
-#  require 'pry-nav'
+# require_relative './game'
+# require_relative './game_team'
+# require_relative './teams'
+require_relative 'game_statistics'
+ require 'pry-nav'
 
 
 class StatTracker
   attr_reader :locations, :team_data, :game_data, :game_teams_data
+
+  include GameStatistics
 
   def initialize(locations)
     @game_data = create_games(locations[:games])
@@ -15,13 +18,6 @@ class StatTracker
   end
 
   # CREATOR METHODS
-
-  def create_games(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Game.new(row)
-    end
-  end
 
   def create_game_teams(path)
     data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
@@ -41,18 +37,9 @@ class StatTracker
     StatTracker.new(locations)
   end
 
-  # GAME STATISTICS
+  # GAME STATISTICS MODULE methods
 
-  def highest_total_score
-    most_goals_game = Game.games.reduce(0) do |goals, game|
-      game_goals = game.home_goals.to_i + game.away_goals.to_i
-      if game_goals > goals
-        goals = game_goals
-      end
-      goals
-    end
-    most_goals_game
-  end
+  highest_total_score
 
   def lowest_total_score
     fewest_goals_game = Game.games.reduce(0) do |goals, game|

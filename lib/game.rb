@@ -33,8 +33,5 @@ class Game
   def self.games
     @@games
   end
-
-  def self.reset
-    @@games =[]
-  end
+  
 end
