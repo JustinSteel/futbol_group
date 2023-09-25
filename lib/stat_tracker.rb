@@ -3,48 +3,36 @@
 # require_relative './game_team'
 # require_relative './teams'
 require_relative 'game_stats'
+require_relative 'game'
 require_relative 'data'
  require 'pry-nav'
 
 
 class StatTracker
 
-  extend GameStats
+  include GameStats
   include Data
 
-  # def initialize
-  #   @game_data = Data.game
-  #   @game_teams_data = Data.team
-  #   @team_data = Data.game_teams
-  # end
+  @stat_tracker = StatTracker.new
+  def initialize
+    @game_data = Data.game
+    @game_teams_data = Data.team
+    @team_data = Data.game_teams
+  end
 
   # GAME STATISTICS MODULE methods
 
-  self.highest_total_score
-  
-  require 'pry'; binding.pry
+  @stat_tracker.highest_total_score
 
-  def lowest_total_score
-    fewest_goals_game = Game.games.reduce(0) do |goals, game|
-      game_goals = game.home_goals.to_i + game.away_goals.to_i
-      if game_goals < goals
-        goals = game_goals
-      end
-      goals
-    end
-    fewest_goals_game
-  end
-  #hm
+  @stat_tracker.lowest_total_score
+
+  @stat_tracker.percentage_home_wins
+
   def percentage_calculator(portion, whole)
     percentage = (portion/whole).round(2)
   end
 
-  def percentage_home_wins
-    home_wins = GameTeam.gameteam.count do |game|
-      game.hoa == "home" && game.result == "WIN"
-    end 
-    (home_wins.to_f / Game.games.count.to_f).round(2)
-  end
+  
 
   def percentage_visitor_wins
     away_wins = GameTeam.gameteam.count do |game|
@@ -376,6 +364,3 @@ class StatTracker
     }
   end
 end
-
-stat_track = StatTracker.new
-require 'pry'; binding.pry

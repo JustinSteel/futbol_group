@@ -2,8 +2,6 @@ require './spec/spec_helper'
 require './lib/stat_tracker'
 
 RSpec.describe StatTracker do
-  include GameStatistics
-  include Data
   
   before(:each) do
     # game_path =         './fixture/games_fixture.csv'
@@ -20,7 +18,6 @@ RSpec.describe StatTracker do
       # }
       
       @stat_tracker = StatTracker.new
-      require 'pry'; binding.pry
   end
 
   describe '#Total Scores' do

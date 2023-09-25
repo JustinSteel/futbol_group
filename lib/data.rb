@@ -5,6 +5,8 @@ require_relative './game_team'
 
 module Data
   
+  
+
   PATHS = {
     game: './data/games.csv',
     team: './data/teams.csv',
@@ -16,6 +18,7 @@ module Data
     data.map do |row|
       Game.new(row)
     end
+    Game.games
   end
   
   def self.team
@@ -23,13 +26,15 @@ module Data
     data.map do |row|
       Team.new(row)
     end
+    Team.teams
   end
   
   def self.game_teams
     data = CSV.parse(File.read(PATHS[:game_team]), headers: true, header_converters: :symbol)
     data.map do |row|
-      Team.new(row)
+      GameTeam.new(row)
     end
+    GameTeam.gameteam
   end
 end
 
