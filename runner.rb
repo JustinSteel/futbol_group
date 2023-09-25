@@ -1,15 +1,8 @@
+require_relative './lib/stat_tracker'
 
-require_relative 'spec_helper'
-
-
-team_path = './data/teams.csv'
-game_teams_path = './data/game_teams.csv'
-
-locations = {
-  games: game_path,
-  teams: team_path,
-  game_teams: game_teams_path
-}
-
-stat_tracker = StatTracker.from_csv(locations)
+  stat_tracker = StatTracker.new
+  stat_tracker.highest_total_score
+  stat_tracker.lowest_total_score
+  stat_tracker.percentage_home_wins
+  require 'pry'; binding.pry
 

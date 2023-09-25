@@ -1,5 +1,5 @@
 require 'pry-nav'
-require_relative 'Data'
+require_relative 'data'
 require_relative 'game'
 
 module GameStats
@@ -33,6 +33,24 @@ module GameStats
       game.hoa == "home" && game.result == "WIN"
     end 
     (home_wins.to_f / Game.games.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    away_wins = GameTeam.gameteam.count do |game|
+      game.hoa == "away" && game.result == "WIN"
+    end 
+    (away_wins.to_f / Game.games.count.to_f).round(2)
+  end
+
+  def percentage_ties 
+    ties = Game.games.count do |game|
+      game.away_goals.to_f == game.home_goals.to_f
+    end.to_f
+    (ties/Game.games.count).round(2)
+  end
+
+  def percentage_calculator(portion, whole)
+    percentage = (portion/whole).round(2)
   end
 
 end

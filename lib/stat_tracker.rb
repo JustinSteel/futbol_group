@@ -13,40 +13,39 @@ class StatTracker
   include GameStats
   include Data
 
-  @stat_tracker = StatTracker.new
+  @@
   def initialize
     @game_data = Data.game
     @game_teams_data = Data.team
     @team_data = Data.game_teams
+    @highest_total_score = highest_total_score
+    @lowest_total_score = lowest_total_score
+    @p_wins = percentage_homeercentage_home_wins
+    @percentage_visitor_wins = percentage_visitor_wins
+    @percentage_ties = percentage_ties
   end
+
+  percentage_calculator = percentage_calculator(portion, whole)
+
+  # def percentage_calculator(portion, whole)
+
+  # end
 
   # GAME STATISTICS MODULE methods
 
-  @stat_tracker.highest_total_score
+  # def highest_total_score
+  #   GameStats.highest_total_score
+  # end
 
-  @stat_tracker.lowest_total_score
+  # @stat_tracker.lowest_total_score
 
-  @stat_tracker.percentage_home_wins
 
-  def percentage_calculator(portion, whole)
-    percentage = (portion/whole).round(2)
-  end
 
   
 
-  def percentage_visitor_wins
-    away_wins = GameTeam.gameteam.count do |game|
-      game.hoa == "away" && game.result == "WIN"
-    end 
-    (away_wins.to_f / Game.games.count.to_f).round(2)
-  end
 
-  def percentage_ties 
-    ties = Game.games.count do |game|
-      game.away_goals.to_f == game.home_goals.to_f
-    end.to_f
-    (ties/Game.games.count).round(2)
-  end
+
+
 
   def count_of_games_by_season 
     games_seasons = Hash.new(0)
