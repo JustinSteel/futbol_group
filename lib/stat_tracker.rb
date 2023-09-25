@@ -2,39 +2,20 @@
 # require_relative './game'
 # require_relative './game_team'
 # require_relative './teams'
-require_relative 'game_statistics'
+require_relative 'game_stats'
+require_relative 'data'
  require 'pry-nav'
 
 
 class StatTracker
-  attr_reader :locations, :team_data, :game_data, :game_teams_data
 
-  include GameStatistics
+  extend GameStats
+  include Data
 
-  def initialize(locations)
-    @game_data = create_games(locations[:games])
-    @game_teams_data = create_game_teams(locations[:game_teams])
-    @team_data = create_teams(locations[:teams])
-  end
-
-  # CREATOR METHODS
-
-  def create_game_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row| 
-      GameTeam.new(row)
-    end
-  end
-
-  def create_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Team.new(row)
-    end
-  end
-
-  def self.from_csv(locations)
-    StatTracker.new(locations)
+  def initialize
+    @game_data = Data.game
+    @game_teams_data = Data.team
+    @team_data = Data.game_teams
   end
 
   # GAME STATISTICS MODULE methods
@@ -434,3 +415,5 @@ end
   end
 end
 
+stat_track = StatTracker.new
+require 'pry'; binding.pry
