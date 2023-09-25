@@ -1,42 +1,23 @@
 # require_relative './spec_helper'
-require_relative './game'
-require_relative './game_team'
-require_relative './teams'
+# require_relative './game'
+# require_relative './game_team'
+# require_relative './teams'
+require_relative 'game_stats'
+require_relative 'game'
+require_relative 'data'
+ require 'pry-nav'
+
 
 class StatTracker
-  attr_reader :locations, :team_data, :game_data, :game_teams_data
 
-  def initialize(locations)
-    @game_data = create_games(locations[:games])
-    @game_teams_data = create_game_teams(locations[:game_teams])
-    @team_data = create_teams(locations[:teams])
-  end
+  include GameStats
+  include Data
 
-  # CREATOR METHODS
-
-  def create_games(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Game.new(row)
-    end
-  end
-
-  def create_game_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row| 
-      GameTeam.new(row)
-    end
-  end
-
-  def create_teams(path)
-    data = CSV.parse(File.read(path), headers: true, header_converters: :symbol)
-    data.map do |row|
-      Team.new(row)
-    end
-  end
-
-  def self.from_csv(locations)
-    StatTracker.new(locations)
+  @stat_tracker = StatTracker.new
+  def initialize
+    @game_data = Data.game
+    @game_teams_data = Data.team
+    @team_data = Data.game_teams
   end
 
   # GAME STATISTICS
@@ -63,12 +44,7 @@ class StatTracker
     fewest_goals_game
   end
 
-  def percentage_home_wins
-    home_wins = GameTeam.gameteam.count do |game|
-      game.hoa == "home" && game.result == "WIN"
-    end 
-    (home_wins.to_f / Game.games.count.to_f).round(2)
-  end
+  
 
   def percentage_visitor_wins
     away_wins = GameTeam.gameteam.count do |game|
@@ -390,4 +366,3 @@ class StatTracker
     }
   end
 end
-
