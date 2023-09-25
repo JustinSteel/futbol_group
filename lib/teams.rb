@@ -20,4 +20,8 @@ class Team
   def self.teams
     @@teams
   end
+
+  def self.reset
+    @@teams = []
+  end
 end

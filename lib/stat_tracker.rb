@@ -1,11 +1,11 @@
 # require_relative './spec_helper'
 # require_relative './game'
-# require_relative './game_team'
-# require_relative './teams'
+require_relative './game_team'
+require_relative './teams'
 require_relative 'game_stats'
 require_relative 'game'
 require_relative 'data'
- require 'pry-nav'
+#  require 'pry-nav'
 
 
 class StatTracker
@@ -15,9 +15,12 @@ class StatTracker
 
   @stat_tracker = StatTracker.new
   def initialize
-    @game_data = Data.game
-    @game_teams_data = Data.team
-    @team_data = Data.game_teams
+    # @game_data = create_games(locations[:games])
+    # @game_teams_data = create_games(locations[:games_team])
+    # @team_data = create_games(locations[:team])
+    @game_data = Data.create_games('./data/games.csv')
+    @game_teams_data = Data.create_game_teams('./data/teams.csv')
+    @team_data = Data.create_teams('./data/game_teams.csv')
   end
 
   # GAME STATISTICS MODULE methods
@@ -28,46 +31,21 @@ class StatTracker
 
   @stat_tracker.percentage_home_wins
 
-  def percentage_calculator(portion, whole)
+  def percentage_calculator(portion, whole )
     percentage = (portion/whole).round(2)
   end
 
-  
+  @stat_tracker.percentage_visitor_wins
 
-  def percentage_visitor_wins
-    away_wins = GameTeam.gameteam.count do |game|
-      game.hoa == "away" && game.result == "WIN"
-    end 
-    (away_wins.to_f / Game.games.count.to_f).round(2)
-  end
+  @stat_tracker.percentage_ties
 
-  def percentage_ties 
-    ties = Game.games.count do |game|
-      game.away_goals.to_f == game.home_goals.to_f
-    end.to_f
-    (ties/Game.games.count).round(2)
-  end
+  @stat_tracker.count_of_games_by_season
 
-  def count_of_games_by_season 
-    games_seasons = Hash.new(0)
-    Game.games.each do |row|
-      season = row.season
-      games_seasons[season] += 1
-    end 
-    games_seasons
+  @stat_tracker.count_of_games_by_season 
+    
 
-  end
-
-  def average_goals_per_game
-    total_goals = 0
-    total_games = []
-    Gameteam.gameteam.each do |row|
-      total_goals += row.goals.to_i
-      total_games << row.game_id
-    end
-    average = total_goals.to_f / total_games.uniq.count
-    average.round(2)
-  end
+  @stat_tracker.average_goals_per_game
+    
 
   def average_goals_by_season
     season_hash = Game.games.group_by{|game| game.season }

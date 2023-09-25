@@ -18,6 +18,8 @@ RSpec.describe StatTracker do
       # }
       
       @stat_tracker = StatTracker.new
+      @portion = 13.0
+      @whole = 19.0
   end
 
   describe '#Total Scores' do
