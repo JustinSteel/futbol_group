@@ -132,22 +132,31 @@ class StatTracker
   end
 
   def best_offense
-    total_team_goals_hash = {}
-    team_goals("home").each do |team_id, home_goals|
-    total_team_goals_hash[team_id] = [
-        home_goals + team_goals("away")[team_id],
-        GameTeam.gameteam.find_all do |game|
-          game.team_id == team_id
-        end.count
-    ]
-    end 
-    team_name_avg_goals = []
-    total_team_goals_hash.each do |team, gls_gms_arr|
-      team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
+    totals_goals = team_goals("home").merge(team_goals("away")) do |key, home, away|
+      home + away
     end
-    team_name_avg_goals.max_by do |team_arr|
-      team_arr.last
-    end.first
+    total_shots = @game_teams_data
+
+    #take total goals / total shots 
+    require 'pry'; binding.pry
+    
+    
+    # total_team_goals_hash = {}
+    # team_goals("home").each do |team_id, home_goals|
+    # total_team_goals_hash[team_id] = [
+    #     home_goals + team_goals("away")[team_id],
+    #     GameTeam.gameteam.find_all do |game|
+    #       game.team_id == team_id
+    #     end.count
+    # ]
+    # end 
+    # team_name_avg_goals = []
+    # total_team_goals_hash.each do |team, gls_gms_arr|
+    #   team_name_avg_goals << [get_team_info(team)['team_name'], ((gls_gms_arr.first.to_f/gls_gms_arr.last.to_f)*100/100).round(3)]
+    # end
+    # team_name_avg_goals.max_by do |team_arr|
+    #   team_arr.last
+    # end.first
   end
 
   def worst_offense
@@ -318,6 +327,7 @@ class StatTracker
         end
       end
     end
+    # require 'pry'; binding.pry
     if home_or_away == "away"
       hoa_hash[:away]
     else 
