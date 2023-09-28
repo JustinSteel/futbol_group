@@ -1,52 +1,49 @@
-# require_relative './spec_helper'
-# require_relative './game'
-# require_relative './game_team'
-# require_relative './teams'
 require_relative 'game_stats'
 require_relative 'game'
 require_relative 'data'
- require 'pry-nav'
+require 'pry-nav'
 
 
 class StatTracker
 
-  include GameStats
+  extend GameStats
   include Data
 
-  @@
   def initialize
     @game_data = Data.game
     @game_teams_data = Data.team
     @team_data = Data.game_teams
-    @highest_total_score = highest_total_score
-    @lowest_total_score = lowest_total_score
-    @p_wins = percentage_homeercentage_home_wins
-    @percentage_visitor_wins = percentage_visitor_wins
-    @percentage_ties = percentage_ties
   end
 
-  percentage_calculator = percentage_calculator(portion, whole)
+  highest_total_score
+  # lowest_total_score
+  # p_wins
+  # percentage_visitor_wins
+  # percentage_ties
 
   # def percentage_calculator(portion, whole)
-
+  #   percentage_calculator(portion, whole)
   # end
-
-  # GAME STATISTICS MODULE methods
-
-  # def highest_total_score
-  #   GameStats.highest_total_score
-  # end
-
-  # @stat_tracker.lowest_total_score
-
-
 
   
-
-
-
-
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   def count_of_games_by_season 
     games_seasons = Hash.new(0)
     Game.games.each do |row|

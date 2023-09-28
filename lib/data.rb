@@ -2,10 +2,9 @@ require 'csv'
 require_relative './game'
 require_relative './teams'
 require_relative './game_team'
+require_relative './stat_tracker'
 
 module Data
-  
-  
 
   PATHS = {
     game: './data/games.csv',

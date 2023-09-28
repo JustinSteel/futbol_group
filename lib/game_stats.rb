@@ -7,12 +7,10 @@ module GameStats
   # include Data
 
   def highest_total_score
-    most_goals_game = Game.games.reduce(0) do |goals, game|
-      game_goals = game.home_goals.to_i + game.away_goals.to_i
-      if game_goals > goals
-        goals = game_goals
-      end
-      goals
+    most_goals_game = Game.games.reduce(0) do |most_goals, game|
+      goals = game.home_goals.to_i + game.away_goals.to_i
+      game_goals > most_goals ? most_goals[0] = goals : most_goals
+      most_goals
     end
     most_goals_game
   end
